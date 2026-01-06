@@ -1,4 +1,3 @@
-// ١. فایربەیس کۆنفیگ (هەمان کۆدی خۆتە)
 const firebaseConfig = {
   apiKey: "AIzaSyAhQHJrxhrIbiLfqsrBSTX92iVJauhVNLo",
   authDomain: "lordbet-9e8fa.firebaseapp.com",
@@ -12,70 +11,49 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// ٢. فانکشنی دروستکردنی هەژمار (ئەمە کێشەکەی تۆ چارەسەر دەکات)
+// --- هەژمار دروستکردن ---
 async function register() {
     const name = document.getElementById('reg-name').value;
     const phone = document.getElementById('reg-phone').value;
     const pass = document.getElementById('reg-pass').value;
     const age = document.getElementById('reg-age').value;
 
-    if (!name || !phone || !pass || !age) {
-        return alert("تکایە هەموو خانەکان پڕبکەرەوە");
-    }
+    if (!name || !phone || !pass || !age) return alert("تکایە هەموو خانەکان پڕبکەرەوە");
 
     try {
-        // دروستکردنی هەژمار لە Authentication
         const res = await auth.createUserWithEmailAndPassword(phone + "@bet.com", pass);
-        
-        // دروستکردنی زانیاری لە Firestore - ئەمە وادەکات یوزەرەکە لە ئادمین دەرکەوێت
+        // دروستکردنی فایلی یوزەر لە داتابەیس (ئەمە زۆر گرنگە بۆ ئادمین)
         await db.collection("users").doc(res.user.uid).set({
             uid: res.user.uid,
             name: name,
             phone: phone,
             balance: 0,
             age: age,
-            role: "user",
-            joinedAt: firebase.firestore.FieldValue.serverTimestamp()
+            joinedAt: new Date()
         });
-        
-        alert("هەژمارەکەت بە سەرکەوتوویی دروست کرا!");
-        location.reload(); // لاپەڕەکە نوێ بکەرەوە
-    } catch(e) {
-        alert("هەڵە لە دروستکردنی هەژمار: " + e.message);
-    }
+        alert("تەواو! هەژمار دروستکرا");
+        location.reload();
+    } catch(e) { alert("هەڵە: " + e.message); }
 }
 
-// ٣. ناردنی وەسڵی پارە
+// --- ناردنی وەسڵی پارە ---
 async function deposit(method) {
-    const amount = document.getElementById('amt')?.value || 0;
-    const pin = document.getElementById('pin')?.value || document.getElementById('asia-pin')?.value || document.getElementById('zi-pin')?.value;
-    
-    if(!pin || !amount) return alert("تکایە بڕی پارە و پین بنووسە");
-    if(!auth.currentUser) return alert("تکایە سەرەتا بچۆ ناو هەژمارەکەت");
+    const amount = document.getElementById('amt').value;
+    const pin = document.getElementById('pin').value;
+    if(!amount || !pin) return alert("بڕ و پین بنووسە");
 
-    try {
-        await db.collection("deposits").add({
-            uid: auth.currentUser.uid,
-            method: method,
-            amount: parseInt(amount),
-            pin: pin,
-            status: "pending",
-            time: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        alert("داواکارییەکەت نێردرا بۆ ئادمین");
-    } catch(e) {
-        alert("هەڵە لە ناردنی داواکاری: " + e.message);
-    }
+    await db.collection("deposits").add({
+        uid: auth.currentUser.uid,
+        method: method,
+        amount: parseInt(amount),
+        pin: pin,
+        status: "pending",
+        time: new Date()
+    });
+    alert("نێردرا بۆ ئادمین");
 }
 
-// ٤. گۆڕینی پەیجەکان (وەک ئەوەی پێشوو کە هەبوو)
-function showPage(page) {
-    const main = document.getElementById('main-content');
-    // لێرە کۆدی نیشاندانی پەیجەکان وەک خۆی بهێڵەرەوە...
-    // (ئەگەر کۆدی showPage لایە، لێرەدا دایبنێوە)
-}
-
-// دڵنیابوونەوە لەوەی باڵانس بە لایڤ نوێ دەبێتەوە
+// --- نیشاندانی باڵانس بە لایڤ ---
 auth.onAuthStateChanged(user => {
     if (user) {
         db.collection("users").doc(user.uid).onSnapshot(doc => {
