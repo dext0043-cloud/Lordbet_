@@ -1,16 +1,73 @@
-<div class="payment-methods">
-    <div class="pay-card">
-        <img src="fastpay-logo.png" alt="FastPay">
-        <p>ناردنی پارە بۆ: <b>0750 123 4567</b></p>
-        <p>کەمترین: 1,000 | زۆرترین: 1,000,000</p>
-        <input type="number" id="fp-amount" placeholder="بڕی پارە">
-        <input type="text" id="fp-pin" placeholder="ژمارەی پین (Transaction ID)">
-        <button onclick="sendDeposit('FastPay')" class="main-btn">ناردن</button>
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LordBet | Wallet</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <a href="index.html" class="back-btn"><i class="fa fa-arrow-right"></i></a>
+        <div class="logo">LORD<span>BET</span> BANK</div>
+    </header>
+
+    <div class="wallet-container">
+        <div class="payment-selection">
+            <button class="pay-tab active" onclick="showTab('fastpay')">FastPay</button>
+            <button class="pay-tab" onclick="showTab('asia')">AsiaCell</button>
+            <button class="pay-tab" onclick="showTab('zicharge')">ZiCharge</button>
+        </div>
+
+        <div id="fastpay" class="pay-section">
+            <div class="info-box">
+                <p>زانیاری: بۆ زیادکردنی باڵانس لە ڕێگەی فاستپەی پارە بنێرە بۆ ئەم ژمارەیە:</p>
+                <h2 class="phone-num">0750 123 4567</h2>
+                <p class="limit-text">لە 1,000 دینار کەمتر نابێت و لە 1,000,000 دینار زیاتر نابێت.</p>
+            </div>
+            <div class="input-group">
+                <input type="number" id="fp-amount" placeholder="[بڕی پارەی نێردراو]">
+                <input type="text" id="fp-pin" placeholder="[ژمارەی پین / ترانزاکشن]">
+                <button onclick="sendDeposit('FastPay')" class="confirm-btn">ناردن</button>
+            </div>
+        </div>
+
+        <div id="asia" class="pay-section" style="display:none;">
+            <div class="info-box">
+                <p>بۆ زیادکردنی باڵانس لە ڕێگەی ئاسیاوێڵ پارە بنێرە بۆ:</p>
+                <h2 class="phone-num">0770 123 4567</h2>
+            </div>
+            <div class="input-group">
+                <input type="number" id="asia-amount" placeholder="[بڕی پارەی نێردراو]">
+                <input type="text" id="asia-pin" placeholder="[کۆدی ناردن]">
+                <button onclick="sendDeposit('AsiaCell')" class="confirm-btn">ناردن</button>
+            </div>
+        </div>
+
+        <div id="zicharge" class="pay-section" style="display:none;">
+            <div class="info-box">
+                <p>کۆدی کارتەکەت لێرە داخل بکە:</p>
+            </div>
+            <div class="input-group">
+                <input type="text" id="zi-code" placeholder="[کۆدی کارت]">
+                <button onclick="sendDeposit('ZiCharge')" class="confirm-btn">ناردن</button>
+            </div>
+        </div>
     </div>
 
-    <div class="pay-card">
-        <h3>Zicharge</h3>
-        <input type="text" id="zi-code" placeholder="کۆدی کارتەکە">
-        <button onclick="sendDeposit('Zicharge')" class="main-btn">ناردن</button>
-    </div>
-</div>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.pay-section').forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
