@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html lang="ku" dir="rtl">
-<head>
-    <meta charset="UTF-8"><title>Wallet</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header class="main-header"><div>باڵانسی تۆ</div><div id="main-balance">0 IQD</div></header>
-    <div style="padding: 20px; text-align: center;">
-        <h3>بۆ زیادکردنی باڵانس</h3>
-        <p>پەیوەندی بکە بە ئادمین: 0750XXXXXXX</p>
-        <button onclick="location.href='index.html'" class="main-btn">گەڕانەوە</button>
+<div class="payment-methods">
+    <div class="pay-card">
+        <img src="fastpay-logo.png" alt="FastPay">
+        <p>ناردنی پارە بۆ: <b>0750 123 4567</b></p>
+        <p>کەمترین: 1,000 | زۆرترین: 1,000,000</p>
+        <input type="number" id="fp-amount" placeholder="بڕی پارە">
+        <input type="text" id="fp-pin" placeholder="ژمارەی پین (Transaction ID)">
+        <button onclick="sendDeposit('FastPay')" class="main-btn">ناردن</button>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+
+    <div class="pay-card">
+        <h3>Zicharge</h3>
+        <input type="text" id="zi-code" placeholder="کۆدی کارتەکە">
+        <button onclick="sendDeposit('Zicharge')" class="main-btn">ناردن</button>
+    </div>
+</div>
