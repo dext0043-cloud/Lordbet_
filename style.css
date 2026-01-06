@@ -1,19 +1,10 @@
-:root { --gold: #fcc419; --dark: #0b0e14; --surface: #1a1f29; --text: #fff; }
-body { background: var(--dark); color: var(--text); font-family: Arial; margin: 0; direction: rtl; padding-bottom: 70px; }
-.main-header { display: flex; justify-content: space-between; padding: 15px; background: var(--surface); border-bottom: 1px solid #333; }
-.logo { font-size: 22px; font-weight: bold; }
-.logo span { color: var(--gold); }
-.wallet-p { border: 1px solid var(--gold); padding: 5px 15px; border-radius: 20px; display: flex; align-items: center; gap: 10px; }
-.plus-link { background: var(--gold); color: #000; text-decoration: none; border-radius: 50%; width: 20px; height: 20px; text-align: center; line-height: 20px; font-weight: bold; }
-.match-card { background: var(--surface); margin: 10px; border-radius: 10px; border: 1px solid #333; overflow: hidden; }
-.match-body { padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-.odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); background: #333; gap: 1px; }
-.odd-box { background: var(--surface); padding: 10px; text-align: center; cursor: pointer; }
-.odd-box .val { color: var(--gold); font-weight: bold; display: block; }
-.bottom-nav { position: fixed; bottom: 0; width: 100%; background: var(--surface); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #333; }
-.nav-link { color: #888; text-decoration: none; text-align: center; font-size: 12px; }
-.nav-link.active { color: var(--gold); }
-.auth-body { display: flex; justify-content: center; align-items: center; height: 100vh; }
-.auth-box { background: var(--surface); padding: 25px; border-radius: 15px; width: 80%; text-align: center; }
-.auth-box input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #444; background: #000; color: #fff; }
-.main-btn { background: var(--gold); border: none; padding: 12px; width: 95%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.wallet-container { padding: 20px; }
+.payment-selection { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; }
+.pay-tab { background: #1a1f29; color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 10px; cursor: pointer; white-space: nowrap; }
+.pay-tab.active { background: #fcc419; color: black; font-weight: bold; }
+.info-box { background: #1a1f29; padding: 20px; border-radius: 15px; border-right: 5px solid #fcc419; margin-bottom: 20px; }
+.phone-num { color: #fcc419; font-size: 24px; letter-spacing: 2px; margin: 10px 0; }
+.limit-text { color: #888; font-size: 13px; }
+.input-group input { width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; }
+.confirm-btn { width: 100%; padding: 15px; background: #fcc419; border: none; border-radius: 10px; font-weight: bold; font-size: 18px; cursor: pointer; }
+.confirm-btn:active { transform: scale(0.98); }
