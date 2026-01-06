@@ -1,43 +1,37 @@
-// لێرە Firebase Config-ەکەی خۆت دابنێوە وەک ئەوەی پێشوو
-
-// سیستەمی زمان (کوردی، عەرەبی، ئینگلیزی)
-const langData = {
-    ku: { welcome: "بەخێربێیت", deposit: "بارکردن", withdraw: "ڕاکێشان", history: "گرەوەکانم" },
-    ar: { welcome: "أهلاً بك", deposit: "إيداع", withdraw: "سحب", history: "رهاناتي" },
-    en: { welcome: "Welcome", deposit: "Deposit", withdraw: "Withdraw", history: "My Bets" }
+// Firebase Config - دڵنیابە ئەمە ڕێک وەک خۆیەتی
+const firebaseConfig = {
+  apiKey: "AIzaSyAhQHJrxhrIbiLfqsrBSTX92iVJauhVNLo",
+  authDomain: "lordbet-9e8fa.firebaseapp.com",
+  projectId: "lordbet-9e8fa",
+  storageBucket: "lordbet-9e8fa.firebasestorage.app",
+  messagingSenderId: "570613318832",
+  appId: "1:570613318832:web:b33d92c46f19edce356775"
 };
 
-function setLanguage(lang) {
-    localStorage.setItem('prefLang', lang);
-    location.reload(); // بۆ ئەوەی زمانەکە جێگیر بێت
-}
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-// ناردنی وەسڵی پارە
-async function sendDeposit(method) {
-    const amount = document.querySelector(`#fp-amount`).value;
-    const pin = document.querySelector(`#fp-pin`).value;
-
-    if(!amount || !pin) return alert("تکایە خانەکان پڕبکەرەوە");
-    if(amount < 1000 || amount > 1000000) return alert("بڕی پارە دەبێت لە نێوان ١٠٠٠ بۆ ١ ملیۆن بێت");
-
-    try {
-        await db.collection("deposits").add({
-            userId: auth.currentUser.uid,
-            method: method,
-            amount: parseInt(amount),
-            pin: pin,
-            status: "pending",
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        alert("داواکارییەکەت نێردرا بۆ ئادمین. تکایە چاوەڕوان بە.");
-    } catch (error) {
-        alert("هەڵەیەک ڕوویدا: " + error.message);
+// نیشاندانی لاپەڕەکان بەبێ ئەوەی سایتەکە ئیرۆر بدات
+function showPage(page) {
+    const content = document.getElementById('app-content');
+    if (page === 'wallet') {
+        content.innerHTML = `
+            <div class="wallet-section">
+                <h3>بارکردنی باڵانس (FastPay)</h3>
+                <p>بنێرە بۆ: 0750 000 0000</p>
+                <input type="number" id="dep-amount" placeholder="بڕی پارە">
+                <input type="text" id="dep-pin" placeholder="پین">
+                <button onclick="sendMoneyRequest()">ناردن</button>
+            </div>
+        `;
+    } else {
+        content.innerHTML = `<h2>بەخێربێیت بۆ لۆردبێت</h2><p>یارییەکان لێرە لود دەبن...</p>`;
     }
 }
 
-// لۆگینی پێشکەوتوو (یوزەرنێم یان مۆبایل)
-async function advancedLogin(userKey, password) {
-    // فایربەیس تەنها ئیمەیڵ دەناسێت، بۆیە ئێمە دەیکەین بە ئیمەیڵ
-    const email = userKey.includes('@') ? userKey : userKey + "@lordbet.com";
-    return auth.signInWithEmailAndPassword(email, password);
-}
+// لودکردنی سەرەتایی
+document.addEventListener('DOMContentLoaded', () => {
+    showPage('home');
+});
