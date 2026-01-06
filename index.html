@@ -12,43 +12,26 @@
 </head>
 <body>
     <header class="main-header">
-        <div class="top-bar">
-            <div class="logo">LORD<span>BET</span></div>
-            <div class="lang-switcher">
-                <button onclick="changeLang('ku')">KU</button>
-                <button onclick="changeLang('ar')">AR</button>
-                <button onclick="changeLang('en')">EN</button>
-            </div>
+        <div class="logo">LORD<span>BET</span></div>
+        <div class="lang-selection">
+            <button onclick="changeLang('ku')">کوردی</button>
+            <button onclick="changeLang('ar')">عربي</button>
         </div>
-        <div class="user-info">
-            <div class="wallet-p">
-                <span id="main-balance">0 IQD</span>
-                <a href="wallet.html" class="plus-link">+</a>
-            </div>
-        </div>
+        <div id="user-balance" class="balance-display">0 IQD</div>
     </header>
 
-    <div class="leagues-container">
-        <button class="league-btn" onclick="toggleLeague('laliga')">La Liga <i class="fa fa-chevron-down"></i></button>
-        <div id="laliga" class="league-content" style="display:none;"></div>
+    <nav class="league-nav">
+        <button onclick="showLeague('laliga')">La Liga</button>
+        <button onclick="showLeague('premier')">Premier League</button>
+    </nav>
 
-        <button class="league-btn" onclick="toggleLeague('premier')">Premier League <i class="fa fa-chevron-down"></i></button>
-        <div id="premier" class="league-content" style="display:none;"></div>
-    </div>
+    <main id="app-content">
+        </main>
 
-    <div id="bet-slip" class="bet-slip">
-        <div class="slip-header">سەبەتەی گرەو (<span id="count">0</span>)</div>
-        <div id="slip-items"></div>
-        <div class="slip-footer">
-            <input type="number" id="bet-amount" placeholder="بڕی پارە (min 1000)" min="1000">
-            <button onclick="placeComboBet()" class="main-btn">ناردنی گرەو</button>
-        </div>
-    </div>
-
-    <footer class="bottom-nav">
-        <a href="index.html" class="nav-link active"><i class="fa fa-home"></i><span data-key="nav_home">سەرەکی</span></a>
-        <a href="my-bets.html" class="nav-link"><i class="fa fa-list"></i><span data-key="nav_bets">گرەوەکانم</span></a>
-        <a href="wallet.html" class="nav-link"><i class="fa fa-wallet"></i><span data-key="nav_wallet">بانک</span></a>
+    <footer class="bottom-menu">
+        <a href="#" onclick="showPage('home')"><i class="fa fa-home"></i><span>سەرەکی</span></a>
+        <a href="#" onclick="showPage('wallet')"><i class="fa fa-wallet"></i><span>بانک</span></a>
+        <a href="#" onclick="showPage('profile')"><i class="fa fa-user"></i><span>پرۆفایل</span></a>
     </footer>
 
     <script src="script.js"></script>
