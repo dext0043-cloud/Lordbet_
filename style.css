@@ -1,5 +1,5 @@
-.asia { background: #d71920; margin-top:10px; padding:15px; border-radius:10px; cursor:pointer; }
-.korek { background: #00a1e4; margin-top:10px; padding:15px; border-radius:10px; cursor:pointer; }
-.zain { background: #632d8d; margin-top:10px; padding:15px; border-radius:10px; cursor:pointer; }
-.zicharge { background: #28a745; margin-top:10px; padding:15px; border-radius:10px; cursor:pointer; }
-.pay-form { display: none; padding: 20px; background: #111; border-radius: 10px; }
+.wallet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px; }
+.pay-card-box { aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 12px; cursor: pointer; color: white; font-weight: bold; text-align: center; }
+.pay-card-box img { width: 45px; margin-bottom: 8px; }
+.bg-asia { background: #d71920; } .bg-korek { background: #00a1e4; } .bg-zain { background: #632d8d; } .bg-zicharge { background: #28a745; }
+.pay-detail-form { display: none; background: #1a1f29; padding: 20px; margin: 10px; border-radius: 15px; }
