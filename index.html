@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LordBet | Home</title>
+    <title>LordBet | Official</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -12,21 +12,45 @@
 </head>
 <body>
     <header class="main-header">
-        <div class="logo">LORD<span>BET</span></div>
-        <div class="wallet-p">
-            <span id="main-balance">0 IQD</span>
-            <a href="wallet.html" class="plus-link">+</a>
+        <div class="top-bar">
+            <div class="logo">LORD<span>BET</span></div>
+            <div class="lang-switcher">
+                <button onclick="changeLang('ku')">KU</button>
+                <button onclick="changeLang('ar')">AR</button>
+                <button onclick="changeLang('en')">EN</button>
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="wallet-p">
+                <span id="main-balance">0 IQD</span>
+                <a href="wallet.html" class="plus-link">+</a>
+            </div>
         </div>
     </header>
 
-    <main id="dynamic-content" class="content-area">
-        </main>
+    <div class="leagues-container">
+        <button class="league-btn" onclick="toggleLeague('laliga')">La Liga <i class="fa fa-chevron-down"></i></button>
+        <div id="laliga" class="league-content" style="display:none;"></div>
+
+        <button class="league-btn" onclick="toggleLeague('premier')">Premier League <i class="fa fa-chevron-down"></i></button>
+        <div id="premier" class="league-content" style="display:none;"></div>
+    </div>
+
+    <div id="bet-slip" class="bet-slip">
+        <div class="slip-header">سەبەتەی گرەو (<span id="count">0</span>)</div>
+        <div id="slip-items"></div>
+        <div class="slip-footer">
+            <input type="number" id="bet-amount" placeholder="بڕی پارە (min 1000)" min="1000">
+            <button onclick="placeComboBet()" class="main-btn">ناردنی گرەو</button>
+        </div>
+    </div>
 
     <footer class="bottom-nav">
-        <a href="index.html" class="nav-link active"><i class="fa fa-home"></i><span>سەرەکی</span></a>
-        <a href="casino.html" class="nav-link"><i class="fa fa-dice"></i><span>کازینۆ</span></a>
-        <a href="wallet.html" class="nav-link"><i class="fa fa-wallet"></i><span>بانک</span></a>
+        <a href="index.html" class="nav-link active"><i class="fa fa-home"></i><span data-key="nav_home">سەرەکی</span></a>
+        <a href="my-bets.html" class="nav-link"><i class="fa fa-list"></i><span data-key="nav_bets">گرەوەکانم</span></a>
+        <a href="wallet.html" class="nav-link"><i class="fa fa-wallet"></i><span data-key="nav_wallet">بانک</span></a>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
