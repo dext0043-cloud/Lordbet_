@@ -3,56 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LordBet | Wallet</title>
+    <title>LordBet | Bank</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
-    <header class="main-header">
-        <a href="index.html" class="back-btn"><i class="fa fa-arrow-right"></i></a>
-        <div class="logo">LORD<span>BET</span> BANK</div>
+<body class="wallet-page">
+    <header class="wallet-header">
+        <button onclick="history.back()" class="back-btn"><i class="fa fa-arrow-right"></i></button>
+        <h2>بارکردنی باڵانس</h2>
     </header>
 
-    <div class="wallet-container">
-        <div class="payment-selection">
-            <button class="pay-tab active" onclick="showTab('fastpay')">FastPay</button>
-            <button class="pay-tab" onclick="showTab('asia')">AsiaCell</button>
-            <button class="pay-tab" onclick="showTab('zicharge')">ZiCharge</button>
-        </div>
+    <div class="payment-tabs">
+        <button class="tab-item active" onclick="openTab('fastpay')">FastPay</button>
+        <button class="tab-item" onclick="openTab('asia')">AsiaCell</button>
+        <button class="tab-item" onclick="openTab('zain')">ZainCash</button>
+        <button class="tab-item" onclick="openTab('korek')">Korek</button>
+        <button class="tab-item" onclick="openTab('zicharge')">ZiCharge</button>
+    </div>
 
-        <div id="fastpay" class="pay-section">
-            <div class="info-box">
-                <p>زانیاری: بۆ زیادکردنی باڵانس لە ڕێگەی فاستپەی پارە بنێرە بۆ ئەم ژمارەیە:</p>
-                <h2 class="phone-num">0750 123 4567</h2>
-                <p class="limit-text">لە 1,000 دینار کەمتر نابێت و لە 1,000,000 دینار زیاتر نابێت.</p>
-            </div>
-            <div class="input-group">
-                <input type="number" id="fp-amount" placeholder="[بڕی پارەی نێردراو]">
-                <input type="text" id="fp-pin" placeholder="[ژمارەی پین / ترانزاکشن]">
-                <button onclick="sendDeposit('FastPay')" class="confirm-btn">ناردن</button>
-            </div>
+    <div id="fastpay" class="tab-content active">
+        <div class="instructions">
+            <p>زانیاری: بۆ زیادکردنی باڵانس لە ڕێگەی فاست پەی پارە بۆ ئەم ژمارەیە بنێرە:</p>
+            <h1 class="target-number">0750 XXX XXXX</h1>
+            <p class="warning">لە 1,000 دینار کەمتر نابێ و لە 1,000,000 زیاتر نابێ.</p>
         </div>
-
-        <div id="asia" class="pay-section" style="display:none;">
-            <div class="info-box">
-                <p>بۆ زیادکردنی باڵانس لە ڕێگەی ئاسیاوێڵ پارە بنێرە بۆ:</p>
-                <h2 class="phone-num">0770 123 4567</h2>
-            </div>
-            <div class="input-group">
-                <input type="number" id="asia-amount" placeholder="[بڕی پارەی نێردراو]">
-                <input type="text" id="asia-pin" placeholder="[کۆدی ناردن]">
-                <button onclick="sendDeposit('AsiaCell')" class="confirm-btn">ناردن</button>
-            </div>
-        </div>
-
-        <div id="zicharge" class="pay-section" style="display:none;">
-            <div class="info-box">
-                <p>کۆدی کارتەکەت لێرە داخل بکە:</p>
-            </div>
-            <div class="input-group">
-                <input type="text" id="zi-code" placeholder="[کۆدی کارت]">
-                <button onclick="sendDeposit('ZiCharge')" class="confirm-btn">ناردن</button>
-            </div>
+        <div class="form-group">
+            <input type="number" id="fp-amount" placeholder="[بڕی پارەی نێردراو]">
+            <input type="text" id="fp-pin" placeholder="[ژمارەی پین / ترانزاکشن]">
+            <button class="submit-btn" onclick="sendDeposit('FastPay')">ناردن</button>
         </div>
     </div>
 
@@ -60,12 +38,11 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="script.js"></script>
-
     <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.pay-section').forEach(s => s.style.display = 'none');
-            document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).style.display = 'block';
+        function openTab(id) {
+            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).style.display = 'block';
             event.currentTarget.classList.add('active');
         }
     </script>
