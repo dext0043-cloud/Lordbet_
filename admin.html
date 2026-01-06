@@ -2,78 +2,35 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>LordBet | بەڕێوەبەرایەتی</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Admin Panel</title>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
-<body style="background: #0b0e14; color: white; padding: 20px;">
-    <h1 style="color: #fcc419;">کۆنترۆڵی ئادمین</h1>
-
-    <div class="admin-section">
-        <h2 style="border-bottom: 2px solid #333;">١. داواکارییەکانی پارە زیادکردن</h2>
-        <div id="deposits-list">چاوەڕوان بە...</div>
-    </div>
-
-    <div class="admin-section" style="margin-top: 40px;">
-        <h2 style="border-bottom: 2px solid #333;">٢. یوزەرە نوێیەکان</h2>
-        <div id="users-list">چاوەڕوان بە...</div>
-    </div>
-
+<body style="background:#000; color:#fff; padding:20px;">
+    <h2>داواکارییەکان</h2>
+    <div id="list"></div>
     <script src="script.js"></script>
     <script>
-        // --- ١. پیشاندانی داواکارییەکان ---
-        db.collection("deposits").where("status", "==", "pending").onSnapshot(snapshot => {
-            const depList = document.getElementById('deposits-list');
-            depList.innerHTML = snapshot.empty ? "<p>هیچ داواکارییەک نییە</p>" : "";
-            snapshot.forEach(doc => {
-                const data = doc.data();
-                depList.innerHTML += `
-                    <div class="pay-card" style="border: 1px solid #fcc419; margin: 10px 0; padding: 15px;">
-                        <p>ID یوزەر: ${data.uid}</p>
-                        <p>بڕ: ${data.amount} IQD | پین: ${data.pin} | جۆر: ${data.method}</p>
-                        <button onclick="approveDep('${doc.id}', '${data.uid}', ${data.amount})" style="background:green; color:white; padding:10px;">قبوڵکردن</button>
-                    </div>`;
+        db.collection("deposits").where("status","==","pending").onSnapshot(snap => {
+            const list = document.getElementById('list');
+            list.innerHTML = "";
+            snap.forEach(doc => {
+                const d = doc.data();
+                list.innerHTML += `<div style="border:1px solid gold; padding:10px; margin:5px;">
+                    <p>یوزەر: ${d.uid} | بڕ: ${d.amount}</p>
+                    <button onclick="approve('${doc.id}', '${d.uid}', ${d.amount})">قبوڵکردن</button>
+                </div>`;
             });
         });
 
-        // --- ٢. پیشاندانی یوزەرەکان بۆ ئەوەی ڕێگەیان پێ بدەیت ---
-        db.collection("users").onSnapshot(snapshot => {
-            const userList = document.getElementById('users-list');
-            userList.innerHTML = "";
-            snapshot.forEach(doc => {
-                const user = doc.data();
-                userList.innerHTML += `
-                    <div class="pay-card" style="border: 1px solid #444; margin: 10px 0; padding: 15px;">
-                        <p>ناو: ${user.name} | تەمەن: ${user.age} | مۆبایل: ${user.phone}</p>
-                        <p>باڵانسی ئێستا: ${user.balance} IQD</p>
-                        <button onclick="addBalanceManually('${doc.id}')" style="background:#fcc419; color:black; padding:5px;">دەستکاری باڵانس</button>
-                    </div>`;
-            });
-        });
-
-        // فرمانی قبوڵکردنی پارە
-        async function approveDep(docId, userId, amount) {
-            const userRef = db.collection("users").doc(userId);
-            const userDoc = await userRef.get();
-            if (userDoc.exists) {
-                const newBalance = (userDoc.data().balance || 0) + parseInt(amount);
-                await userRef.update({ balance: newBalance });
-                await db.collection("deposits").doc(docId).update({ status: "approved" });
-                alert("پارەکە زیادکرا!");
-            }
-        }
-
-        async function addBalanceManually(uid) {
-            const amt = prompt("بڕی ئەو پارەیەی بۆی زیاد دەکەیت بنووسە:");
-            if(amt) {
-                const userRef = db.collection("users").doc(uid);
-                const userDoc = await userRef.get();
-                const newBal = (userDoc.data().balance || 0) + parseInt(amt);
-                await userRef.update({ balance: newBal });
-                alert("تەواو!");
-            }
+        async function approve(id, uid, amt) {
+            const ref = db.collection("users").doc(uid);
+            const user = await ref.get();
+            const newBal = (user.data().balance || 0) + amt;
+            await ref.update({ balance: newBal });
+            await db.collection("deposits").doc(id).update({ status: "approved" });
+            alert("پارە زیادکرا!");
         }
     </script>
 </body>
