@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LordBet | Official</title>
+    <title>LordBet | Official System</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -13,25 +13,25 @@
 <body>
     <header class="main-header">
         <div class="logo">LORD<span>BET</span></div>
-        <div class="lang-selection">
-            <button onclick="changeLang('ku')">کوردی</button>
-            <button onclick="changeLang('ar')">عربي</button>
+        <div class="lang-btns">
+            <button onclick="changeLang('ku')">KU</button>
+            <button onclick="changeLang('ar')">AR</button>
+            <button onclick="changeLang('en')">EN</button>
         </div>
-        <div id="user-balance" class="balance-display">0 IQD</div>
+        <div class="user-status">
+            <span id="main-balance">0 IQD</span>
+            <a href="#" onclick="showPage('wallet')" class="plus-btn">+</a>
+        </div>
     </header>
 
-    <nav class="league-nav">
-        <button onclick="showLeague('laliga')">La Liga</button>
-        <button onclick="showLeague('premier')">Premier League</button>
-    </nav>
+    <div id="main-content">
+        </div>
 
-    <main id="app-content">
-        </main>
-
-    <footer class="bottom-menu">
-        <a href="#" onclick="showPage('home')"><i class="fa fa-home"></i><span>سەرەکی</span></a>
-        <a href="#" onclick="showPage('wallet')"><i class="fa fa-wallet"></i><span>بانک</span></a>
-        <a href="#" onclick="showPage('profile')"><i class="fa fa-user"></i><span>پرۆفایل</span></a>
+    <footer class="bottom-nav">
+        <a href="#" onclick="showPage('home')"><i class="fa fa-home"></i><span data-key="home">سەرەکی</span></a>
+        <a href="#" onclick="showPage('leagues')"><i class="fa fa-trophy"></i><span data-key="leagues">خولەکان</span></a>
+        <a href="#" onclick="showPage('wallet')"><i class="fa fa-wallet"></i><span data-key="wallet">بانک</span></a>
+        <a href="#" onclick="showPage('profile')"><i class="fa fa-user"></i><span data-key="profile">هەژمار</span></a>
     </footer>
 
     <script src="script.js"></script>
