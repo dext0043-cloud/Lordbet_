@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>LordBet | Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+</head>
+<body style="padding: 20px;">
+    <h2 style="color: #fcc419;">بەڕێوەبردنی داواکارییەکان</h2>
+    <div id="admin-list">
+        <p>چاوەڕوان بە، داواکارییەکان لود دەبن...</p>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // لودکردنی هەموو داواکارییەکانی پارە ناردن
+        db.collection("deposits").where("status", "==", "pending").onSnapshot(snapshot => {
+            const list = document.getElementById('admin-list');
+            list.innerHTML = "";
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                list.innerHTML += `
+                    <div class="pay-card" style="border: 1px solid #444; margin-bottom: 10px;">
+                        <p><b>یوزەر:</b> ${data.uid}</p>
+                        <p><b>بڕی پارە:</b> ${data.amount} IQD</p>
+                        <p><b>پین:</b> ${data.pin}</p>
+                        <p><b>جۆر:</b> ${data.method}</p>
+                        <button onclick="approveDeposit('${doc.id}', '${data.uid}', ${data.amount})" style="background: green; color: white; padding: 10px; border: none; cursor: pointer;">قبوڵکردن</button>
+                        <button onclick="rejectDeposit('${doc.id}')" style="background: red; color: white; padding: 10px; border: none; cursor: pointer;">ڕەتکردنەوە</button>
+                    </div>
+                `;
+            });
+        });
+
+        async function approveDeposit(docId, userId, amount) {
+            try {
+                // ١. زیادکردنی پارە بۆ یوزەرەکە
+                const userRef = db.collection("users").doc(userId);
+                await db.runTransaction(async (transaction) => {
+                    const userDoc = await transaction.get(userRef);
+                    const currentBalance = userDoc.data().balance || 0;
+                    transaction.update(userRef, { balance: currentBalance + parseInt(amount) });
+                });
+
+                // ٢. گۆڕینی ستاتۆسی وەسڵەکە بۆ 'approved'
+                await db.collection("deposits").doc(docId).update({ status: "approved" });
+                alert("پارەکە بە سەرکەوتوویی زیاد کرا!");
+            } catch (e) { alert("هەڵە: " + e.message); }
+        }
+
+        async function rejectDeposit(docId) {
+            await db.collection("deposits").doc(docId).update({ status: "rejected" });
+            alert("داواکارییەکە ڕەتکرایەوە.");
+        }
+    </script>
+</body>
+</html>
