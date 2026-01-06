@@ -1,20 +1,5 @@
-:root { --gold: #fcc419; --dark: #0b0e14; --card: #1a1f29; --text: #ffffff; }
-body { background: var(--dark); color: var(--text); font-family: sans-serif; margin: 0; direction: rtl; padding-bottom: 70px; }
-.main-header { display: flex; justify-content: space-between; padding: 15px; background: var(--card); border-bottom: 1px solid #333; align-items: center; position: sticky; top: 0; z-index: 100; }
-.logo span { color: var(--gold); }
-.lang-btns button { background: #333; color: white; border: none; padding: 5px 8px; border-radius: 5px; font-size: 10px; cursor: pointer; }
-.balance-display { border: 1px solid var(--gold); padding: 5px 12px; border-radius: 20px; color: var(--gold); }
-
-/* Wallet UI */
-.pay-card { background: var(--card); margin: 15px; padding: 20px; border-radius: 15px; border-right: 4px solid var(--gold); }
-.pay-card h2 { color: var(--gold); text-align: center; }
-.pay-card input { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #444; color: white; border-radius: 8px; box-sizing: border-box; }
-.main-btn { width: 100%; padding: 15px; background: var(--gold); border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; }
-
-/* Bottom Nav */
-.bottom-nav { position: fixed; bottom: 0; width: 100%; background: var(--card); display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #333; }
-.bottom-nav a { color: #888; text-decoration: none; text-align: center; font-size: 12px; display: flex; flex-direction: column; gap: 5px; }
-.bottom-nav a i { font-size: 20px; }
-
-/* Leagues */
-.league-item { background: var(--card); padding: 15px; margin: 5px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; }
+.asia { background: #d71920; margin-top:10px; padding:15px; border-radius:10px; cursor:pointer; }
+.korek { background: #00a1e4; margin-top:10px; padding:15px; border-radius:10px; cursor:pointer; }
+.zain { background: #632d8d; margin-top:10px; padding:15px; border-radius:10px; cursor:pointer; }
+.zicharge { background: #28a745; margin-top:10px; padding:15px; border-radius:10px; cursor:pointer; }
+.pay-form { display: none; padding: 20px; background: #111; border-radius: 10px; }
