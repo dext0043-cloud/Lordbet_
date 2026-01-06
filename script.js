@@ -1,4 +1,4 @@
-// 1. Firebase Configuration
+// 1. Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyAhQHJrxhrIbiLfqsrBSTX92iVJauhVNLo",
   authDomain: "lordbet-9e8fa.firebaseapp.com",
@@ -12,115 +12,76 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// 2. Main Navigation Function
+// 2. Navigation
 async function showPage(page) {
     const main = document.getElementById('main-content');
-    
+    if (!main) return;
+
     if (page === 'wallet') {
         main.innerHTML = `
+            <h2 style="text-align:center; color:gold; margin-top:10px;">ناردنی کۆدی کارت</h2>
             <div class="wallet-grid">
-                <div class="pay-card-box bg-asia" onclick="togglePay('form-asia')">
-                    <img src="https://i.ibb.co/L8r3rXp/asia.png" alt="Asia">
-                    <span>AsiaCell</span>
-                </div>
-                <div class="pay-card-box bg-korek" onclick="togglePay('form-korek')">
-                    <img src="https://i.ibb.co/0V8V2M1/korek.png" alt="Korek">
-                    <span>Korek</span>
-                </div>
-                <div class="pay-card-box bg-zain" onclick="togglePay('form-zain')">
-                    <img src="https://i.ibb.co/mH0Q0Y4/zain.png" alt="Zain">
-                    <span>Zain Cash</span>
-                </div>
-                <div class="pay-card-box bg-zicharge" onclick="togglePay('form-zi')">
-                    <img src="https://i.ibb.co/7R8mX7z/zicharge.png" alt="ZiCharge">
-                    <span>ZiCharge</span>
-                </div>
+                <div class="pay-card-box bg-asia" onclick="togglePay('f-asia')"><span>AsiaCell</span></div>
+                <div class="pay-card-box bg-korek" onclick="togglePay('f-korek')"><span>Korek</span></div>
+                <div class="pay-card-box bg-zain" onclick="togglePay('f-zain')"><span>Zain</span></div>
+                <div class="pay-card-box bg-zi" onclick="togglePay('f-zi')"><span>ZiCharge</span></div>
             </div>
 
-            <div id="form-asia" class="pay-detail-form">
-                <h3>AsiaCell</h3>
-                <p>بنێرە بۆ: 0770 XXX XXXX</p>
-                <p class="limit">کەمترین: 10,000 | زۆرترین: 1,000,000</p>
-                <input type="number" id="amt-asia" placeholder="بڕی پارە">
-                <input type="text" id="pin-asia" placeholder="پین یان کۆدی کارت">
-                <button class="main-btn" onclick="sendDeposit('AsiaCell', 'amt-asia', 'pin-asia')">ناردن</button>
+            <div id="f-asia" class="pay-detail-form">
+                <h3>AsiaCell Card</h3>
+                <input type="number" id="amt-asia" placeholder="بڕی کارت (نموونە: 10000)">
+                <input type="text" id="pin-asia" placeholder="کۆدی کارت (١٤ ژمارە)">
+                <button class="main-btn" onclick="sendCard('AsiaCell', 'amt-asia', 'pin-asia')">ناردن</button>
             </div>
 
-            <div id="form-korek" class="pay-detail-form">
-                <h3>Korek Telecom</h3>
-                <p>بنێرە بۆ: 0750 XXX XXXX</p>
-                <p class="limit">کەمترین: 10,000 | زۆرترین: 1,000,000</p>
-                <input type="number" id="amt-korek" placeholder="بڕی پارە">
-                <input type="text" id="pin-korek" placeholder="پین یان کۆدی کارت">
-                <button class="main-btn" onclick="sendDeposit('Korek', 'amt-korek', 'pin-korek')">ناردن</button>
+            <div id="f-korek" class="pay-detail-form">
+                <h3>Korek Card</h3>
+                <input type="number" id="amt-korek" placeholder="بڕی کارت">
+                <input type="text" id="pin-korek" placeholder="کۆدی کارت">
+                <button class="main-btn" onclick="sendCard('Korek', 'amt-korek', 'pin-korek')">ناردن</button>
             </div>
 
-            <div id="form-zain" class="pay-detail-form">
-                <h3>Zain Cash</h3>
-                <p>بنێرە بۆ: 0780 XXX XXXX</p>
-                <p class="limit">کەمترین: 10,000 | زۆرترین: 1,000,000</p>
-                <input type="number" id="amt-zain" placeholder="بڕی پارە">
-                <input type="text" id="pin-zain" placeholder="پین">
-                <button class="main-btn" onclick="sendDeposit('ZainCash', 'amt-zain', 'pin-zain')">ناردن</button>
+            <div id="f-zain" class="pay-detail-form">
+                <h3>Zain Cash / Card</h3>
+                <input type="number" id="amt-zain" placeholder="بڕ">
+                <input type="text" id="pin-zain" placeholder="کۆد یان پین">
+                <button class="main-btn" onclick="sendCard('Zain', 'amt-zain', 'pin-zain')">ناردن</button>
             </div>
 
-            <div id="form-zi" class="pay-detail-form">
-                <h3>ZiCharge</h3>
-                <p class="limit">کەمترین: 10,000 | زۆرترین: 1,000,000</p>
-                <input type="text" id="pin-zi" placeholder="کۆدی کارت بنووسە">
-                <button class="main-btn" onclick="sendDeposit('ZiCharge', null, 'pin-zi')">ناردن</button>
+            <div id="f-zi" class="pay-detail-form">
+                <h3>ZiCharge Card</h3>
+                <input type="number" id="amt-zi" placeholder="بڕی کارت">
+                <input type="text" id="pin-zi" placeholder="کۆدی کارت">
+                <button class="main-btn" onclick="sendCard('ZiCharge', 'amt-zi', 'pin-zi')">ناردن</button>
             </div>
         `;
-    } 
-    else if (page === 'profile') {
+    } else if (page === 'profile') {
         const user = auth.currentUser;
         if (!user) {
-            main.innerHTML = `
-                <div class="pay-card">
-                    <h2>چوونە ژوورەوە</h2>
-                    <input type="text" id="login-id" placeholder="یوزەرنێم یان ژمارە">
-                    <input type="password" id="login-pass" placeholder="پاسۆرد">
-                    <button class="main-btn" onclick="login()">داخڵبوون</button>
-                    <p onclick="showPage('register')" style="text-align:center; color:gold; cursor:pointer; margin-top:10px;">دروستکردنی هەژمار</p>
-                </div>`;
+            main.innerHTML = `<div class="pay-card"><h2>Login</h2><input type="text" id="l-id" placeholder="ناو یان مۆبایل"><input type="password" id="l-pass" placeholder="Password"><button class="main-btn" onclick="login()">Login</button><p onclick="showPage('reg')" style="color:gold;cursor:pointer;margin-top:10px;">Registration</p></div>`;
         } else {
             const doc = await db.collection("users").doc(user.uid).get();
-            const data = doc.data();
-            main.innerHTML = `
-                <div class="profile-container" style="padding:20px; text-align:center;">
-                    <i class="fa fa-user-circle" style="font-size:60px; color:gold;"></i>
-                    <h2>${data.name}</h2>
-                    <div class="info-row"><span>باڵانس:</span> <b style="color:gold;">${data.balance} IQD</b></div>
-                    <button class="main-btn" style="background:red; margin-top:20px;" onclick="auth.signOut().then(()=>location.reload())">چوونە دەرەوە</button>
-                </div>`;
+            const d = doc.data();
+            main.innerHTML = `<div style="text-align:center;padding:20px;"><h2>${d.name}</h2><p>Balance: <b style="color:gold;">${d.balance} IQD</b></p><button class="main-btn" style="background:red;" onclick="auth.signOut().then(()=>location.reload())">Logout</button></div>`;
         }
-    } 
-    else if (page === 'register') {
-        main.innerHTML = `
-            <div class="pay-card">
-                <h2>تۆمارکردن</h2>
-                <input type="text" id="reg-name" placeholder="ناوی بەکارهێنەر">
-                <input type="number" id="reg-phone" placeholder="ژمارەی مۆبایل">
-                <input type="password" id="reg-pass" placeholder="پاسۆرد">
-                <input type="number" id="reg-age" placeholder="تەمەن">
-                <button class="main-btn" onclick="register()">دروستکردن</button>
-            </div>`;
+    } else if (page === 'reg') {
+        main.innerHTML = `<div class="pay-card"><h2>Create Account</h2><input type="text" id="r-n" placeholder="ناو"><input type="number" id="r-p" placeholder="مۆبایل"><input type="password" id="r-ps" placeholder="پاسۆرد"><button class="main-btn" onclick="register()">Create</button></div>`;
     } else {
-        main.innerHTML = `<div style="padding:20px;"><h2>سەرەکی</h2><p>یارییەکان لێرە دەردەکەون...</p></div>`;
+        main.innerHTML = `<div style="padding:20px;"><h2>Home</h2><p>یارییەکان لێرە دەردەکەون</p></div>`;
     }
 }
 
-// 3. Logic Functions
+// 3. Helper Functions
 function togglePay(id) {
     document.querySelectorAll('.pay-detail-form').forEach(f => f.style.display = 'none');
     document.getElementById(id).style.display = 'block';
 }
 
-async function sendDeposit(method, amtId, pinId) {
-    const amount = amtId ? document.getElementById(amtId).value : 0;
+async function sendCard(method, amtId, pinId) {
+    const amount = document.getElementById(amtId).value;
     const pin = document.getElementById(pinId).value;
-    if(!pin) return alert("پین بنووسە");
-    if(amtId && (amount < 10000 || amount > 1000000)) return alert("بڕ دەبێت ١٠ هەزار بۆ ١ ملیۆن بێت");
+    if(!pin || !amount) return alert("تکایە بڕ و کۆد بنووسە");
+    if(amount < 10000) return alert("کەمترین بڕ ١٠ هەزارە");
 
     await db.collection("deposits").add({
         uid: auth.currentUser.uid,
@@ -130,29 +91,25 @@ async function sendDeposit(method, amtId, pinId) {
         status: "pending",
         time: new Date()
     });
-    alert("نێردرا بۆ ئادمین");
+    alert("کۆدەکە نێردرا، ئادمین پاش کەمێکی تر پارەکە زیاد دەکات");
 }
 
 async function register() {
-    const name = document.getElementById('reg-name').value;
-    const phone = document.getElementById('reg-phone').value;
-    const pass = document.getElementById('reg-pass').value;
-    const age = document.getElementById('reg-age').value;
+    const n = document.getElementById('r-n').value, p = document.getElementById('r-p').value, ps = document.getElementById('r-ps').value;
     try {
-        const res = await auth.createUserWithEmailAndPassword(phone + "@bet.com", pass);
-        await db.collection("users").doc(res.user.uid).set({ uid: res.user.uid, name, phone, balance: 0, age });
+        const res = await auth.createUserWithEmailAndPassword(p + "@bet.com", ps);
+        await db.collection("users").doc(res.user.uid).set({ uid: res.user.uid, name: n, phone: p, balance: 0 });
         location.reload();
     } catch (e) { alert(e.message); }
 }
 
 async function login() {
-    const input = document.getElementById('login-id').value;
-    const pass = document.getElementById('login-pass').value;
+    const id = document.getElementById('l-id').value, ps = document.getElementById('l-pass').value;
     try {
-        let q = await db.collection("users").where("name", "==", input).get();
-        if (q.empty) q = await db.collection("users").where("phone", "==", input).get();
+        let q = await db.collection("users").where("name", "==", id).get();
+        if (q.empty) q = await db.collection("users").where("phone", "==", id).get();
         if (!q.empty) {
-            await auth.signInWithEmailAndPassword(q.docs[0].data().phone + "@bet.com", pass);
+            await auth.signInWithEmailAndPassword(q.docs[0].data().phone + "@bet.com", ps);
             location.reload();
         } else alert("نەدۆزرایەوە");
     } catch (e) { alert("هەڵەیە"); }
