@@ -1,3 +1,4 @@
+// لێرەدا کۆنفیگی فایربەیسەکەی خۆت دابنێوە (هەمان کۆدەکەی پێشوو)
 const firebaseConfig = {
   apiKey: "AIzaSyAhQHJrxhrIbiLfqsrBSTX92iVJauhVNLo",
   authDomain: "lordbet-9e8fa.firebaseapp.com",
@@ -19,63 +20,69 @@ function toggleMenu() {
 async function showPage(p) {
     const main = document.getElementById('main-content');
     if(document.getElementById('side-menu').style.right === '0px') toggleMenu();
-    window.scrollTo(0,0);
 
     if (p === 'deposit' || p === 'withdraw') {
-        const title = p === 'deposit' ? 'بارکردنی باڵانس' : 'کێشانەوەی پارە';
+        const isDep = p === 'deposit';
         main.innerHTML = `
-            <div style="padding:20px; text-align:center;"><h2>${title}</h2><p style="color:gold;">5,000 - 1,000,000 IQD</p></div>
+            <h2>${isDep ? 'بارکردنی باڵانس' : 'کێشانەوە'}</h2>
             <div class="method-grid">
-                <div class="method-card" onclick="openInput('Asiacell', '${p}')"><img src="https://i.ibb.co/L8r3rXp/asia.png"><br>Asiacell</div>
-                <div class="method-card" onclick="openInput('Korek', '${p}')"><img src="https://i.ibb.co/0V8V2M1/korek.png"><br>Korek</div>
-                <div class="method-card" onclick="openInput('Zain', '${p}')"><img src="https://i.ibb.co/mH0Q0Y4/zain.png"><br>Zain Cash</div>
-                <div class="method-card" onclick="openInput('ZiCharge', '${p}')"><img src="https://i.ibb.co/7R8mX7z/zicharge.png"><br>ZiCharge</div>
+                <div class="card" onclick="openForm('Asiacell', '${p}')"><img src="https://i.ibb.co/L8r3rXp/asia.png"><br>Asiacell</div>
+                <div class="card" onclick="openForm('Korek', '${p}')"><img src="https://i.ibb.co/0V8V2M1/korek.png"><br>Korek</div>
+                <div class="card" onclick="openForm('ZainCash', '${p}')"><img src="https://i.ibb.co/mH0Q0Y4/zain.png"><br>Zain Cash</div>
+                <div class="card" onclick="openForm('ZiCharge', '${p}')"><img src="https://i.ibb.co/7R8mX7z/zicharge.png"><br>ZiCharge</div>
             </div>
-            <div id="modal" class="modal"><div class="modal-content">
-                <h3 id="m-title" style="color:gold;"></h3>
-                <input type="number" id="m-amt" placeholder="بڕی پارە">
-                <input type="text" id="m-pin" placeholder="کۆدی کارت یان مۆبایل">
-                <button class="btn-gold" onclick="submitRequest('${p}')">ناردن</button>
-                <p onclick="closeModal()" style="text-align:center; margin-top:15px; cursor:pointer;">داخستن</p>
-            </div></div>`;
+            <div id="form-area" style="display:none; margin-top:20px; background:#111; padding:20px; border-radius:15px; border:1px solid gold;">
+                <h3 id="form-title" style="color:gold;"></h3>
+                <input type="number" id="f-amt" placeholder="بڕی پارە (5,000 - 1,000,000)">
+                <input type="text" id="f-pin" placeholder="${isDep ? 'کۆدی کارت' : 'ژمارەی مۆبایل'}">
+                <button class="btn" onclick="submitForm('${p}')">ناردن بۆ ئادمین</button>
+            </div>`;
     } 
     else if (p === 'sports') {
-        main.innerHTML = `<div style="padding:20px;"><h2 style="color:gold; text-align:center;">گرەوی وەرزشی</h2>
-            <div style="background:#1a1a1a; padding:15px; border-radius:15px; margin-top:15px;">
-                <p style="text-align:center;">Man City vs Arsenal</p>
-                <div style="display:flex; justify-content:space-between; margin-top:10px;">
-                    <button class="btn-gold" style="width:30%;" onclick="makeBet('Man City', 1.65)">1 (1.65)</button>
-                    <button class="btn-gold" style="width:30%; background:#333; color:white;" onclick="makeBet('Draw', 3.40)">X (3.40)</button>
-                    <button class="btn-gold" style="width:30%;" onclick="makeBet('Arsenal', 2.90)">2 (2.90)</button>
+        main.innerHTML = `
+            <h2 style="color:gold;">گرەوی وەرزشی</h2>
+            <div style="background:#1a1a1a; padding:15px; border-radius:15px; margin-top:15px; border:1px solid #333;">
+                <p>Real Madrid vs Barcelona</p>
+                <div style="display:flex; justify-content:space-around; margin-top:10px;">
+                    <button class="btn" style="width:30%;" onclick="makeBet('R.Madrid', 1.80)">1 (1.80)</button>
+                    <button class="btn" style="width:30%; background:#333; color:white;" onclick="makeBet('Draw', 3.50)">X (3.50)</button>
+                    <button class="btn" style="width:30%;" onclick="makeBet('Barca', 2.10)">2 (2.10)</button>
                 </div>
             </div>
-            <iframe src="https://www.scorebat.com/embed/livescore/" width="100%" height="500" style="border:none; margin-top:20px;"></iframe></div>`;
-    }
-    else if (p === 'reg') {
-        main.innerHTML = `<div style="padding:40px 20px;"><h2>هەژماری نوێ</h2><input id="un" placeholder="ناو"><input id="ph" placeholder="مۆبایل"><input type="password" id="ps" placeholder="پاسۆرد"><button class="btn-gold" onclick="register()">دروستکردن</button></div>`;
+            <iframe src="https://www.scorebat.com/embed/livescore/" width="100%" height="450" style="border:none; border-radius:15px; margin-top:20px;"></iframe>`;
     }
     else if (p === 'profile') {
-        const u = auth.currentUser;
-        if(!u) main.innerHTML = `<div style="padding:40px 20px;"><h2>چوونە ژوورەوە</h2><input id="li" placeholder="ناو یان مۆبایل"><input type="password" id="lp" placeholder="پاسۆرد"><button class="btn-gold" onclick="login()">داخڵبوون</button></div>`;
-        else {
-            const d = (await db.collection("users").doc(u.uid).get()).data();
-            main.innerHTML = `<div style="text-align:center; padding:50px;"><h2>${d.name}</h2><p>${d.balance} IQD</p><button class="btn-gold" style="background:red; margin-top:20px;" onclick="auth.signOut().then(()=>location.reload())">Logout</button></div>`;
+        const user = auth.currentUser;
+        if(!user) {
+            main.innerHTML = `<h2>Login</h2><input id="l-ph" placeholder="مۆبایل"><input type="password" id="l-ps" placeholder="پاسۆرد"><button class="btn" onclick="login()">چوونە ژوورەوە</button><p onclick="showPage('reg')" style="margin-top:15px; color:gold;">دروستکردنی هەژمار</p>`;
+        } else {
+            const d = (await db.collection("users").doc(user.uid).get()).data();
+            main.innerHTML = `<h2>بەخێربێیت ${d.name}</h2><p style="margin:20px 0;">باڵانس: ${d.balance} IQD</p><button class="btn" style="background:red;" onclick="auth.signOut().then(()=>location.reload())">Logout</button>`;
         }
     }
-    else { main.innerHTML = `<div style="text-align:center; padding:100px 20px;"><h1 style="color:gold; font-size:40px;">LORDBET</h1><p>خێراترین و پڕۆفیشناڵترین سیستم</p></div>`; }
+    else if (p === 'reg') {
+        main.innerHTML = `<h2>تۆمارکردن</h2><input id="r-n" placeholder="ناو"><input id="r-p" placeholder="مۆبایل"><input type="password" id="r-ps" placeholder="پاسۆرد"><button class="btn" onclick="register()">تۆمارکردن</button>`;
+    }
+    else {
+        main.innerHTML = `<h1 style="color:gold; margin-top:50px; font-size:40px;">LORDBET</h1><p>خێراترین و پڕۆفیشناڵترین سیستەم</p>`;
+    }
 }
 
-let currentMethod = "";
-function openInput(m, p) { currentMethod = m; document.getElementById('m-title').innerText = m; document.getElementById('modal').style.display='flex'; }
-function closeModal() { document.getElementById('modal').style.display='none'; }
+let activeMethod = "";
+function openForm(m, p) {
+    activeMethod = m;
+    document.getElementById('form-area').style.display = 'block';
+    document.getElementById('form-title').innerText = m;
+    window.scrollTo(0, document.body.scrollHeight);
+}
 
-async function submitRequest(type) {
-    const amt = parseInt(document.getElementById('m-amt').value);
-    const pin = document.getElementById('m-pin').value;
+async function submitForm(type) {
+    const amt = parseInt(document.getElementById('f-amt').value);
+    const pin = document.getElementById('f-pin').value;
     if(amt < 5000 || amt > 1000000) return alert("بڕەکە دەبێت لە نێوان ٥ هەزار بۆ ١ ملیۆن بێت");
-    await db.collection(type === 'deposit' ? "deposits" : "withdraws").add({ uid: auth.currentUser.uid, method: currentMethod, amount: amt, pin, status: "pending", time: new Date() });
-    alert("داواکارییەکەت نێردرا");
-    closeModal();
+    await db.collection(type === 'deposit' ? "deposits" : "withdraws").add({ uid: auth.currentUser.uid, method: activeMethod, amount: amt, pin, status: "pending", time: new Date() });
+    alert("داواکارییەکەت نێردرا بۆ ئادمین");
+    showPage('home');
 }
 
 async function makeBet(team, rate) {
@@ -90,8 +97,9 @@ async function makeBet(team, rate) {
     alert("پسوولە دروستکرا: " + tid);
 }
 
+// Login/Register Functions
 async function register() {
-    const n=document.getElementById('un').value, p=document.getElementById('ph').value, ps=document.getElementById('ps').value;
+    const n=document.getElementById('r-n').value, p=document.getElementById('r-p').value, ps=document.getElementById('r-ps').value;
     try {
         const res = await auth.createUserWithEmailAndPassword(p+"@bet.com", ps);
         await db.collection("users").doc(res.user.uid).set({ uid: res.user.uid, name: n, phone: p, balance: 0 });
@@ -100,11 +108,11 @@ async function register() {
 }
 
 async function login() {
-    const id=document.getElementById('li').value, ps=document.getElementById('lp').value;
-    let q = await db.collection("users").where("name","==",id).get();
-    if(q.empty) q = await db.collection("users").where("phone","==",id).get();
-    if(!q.empty) { await auth.signInWithEmailAndPassword(q.docs[0].data().phone+"@bet.com", ps); location.reload(); }
-    else alert("نەدۆزرایەوە");
+    const p=document.getElementById('l-ph').value, ps=document.getElementById('l-ps').value;
+    try {
+        await auth.signInWithEmailAndPassword(p+"@bet.com", ps);
+        location.reload();
+    } catch(e) { alert("زانیارییەکان هەڵەن"); }
 }
 
 auth.onAuthStateChanged(u => {
