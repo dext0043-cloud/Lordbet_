@@ -1,39 +1,28 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-body { background: radial-gradient(circle, #4a0000 0%, #000000 100%); background-attachment: fixed; color: white; direction: rtl; }
-.top-header { background: rgba(0,0,0,0.9); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid gold; position: sticky; top: 0; z-index: 100; }
-.menu-btn { font-size: 28px; cursor: pointer; color: gold; }
-.logo { font-weight: bold; font-size: 22px; color: gold; }
-.user-balance { background: #222; padding: 5px 12px; border-radius: 20px; border: 1px solid gold; font-size: 14px; }
-.side-nav { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: rgba(0,0,0,0.98); z-index: 200; transition: 0.4s; padding-top: 60px; border-left: 1px solid gold; }
-.nav-item { display: flex; align-items: center; padding: 15px 25px; border-bottom: 1px solid #222; cursor: pointer; }
-.nav-item img { width: 22px; margin-left: 15px; filter: invert(1); }
-.close-menu { position: absolute; top: 15px; left: 20px; font-size: 35px; cursor: pointer; color: gold; }
-.wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
-.pay-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #333; cursor: pointer; }
-.pay-box img { width: 40px; margin-bottom: 8px; }
-.pay-form, .match-card { background: rgba(255,255,255,0.08); margin: 15px; padding: 20px; border-radius: 15px; border: 1px solid #444; }
-input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; background: #222; color: white; }
-.main-btn { width: 100%; padding: 12px; background: gold; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-.odds-row { display: flex; justify-content: space-around; margin-top: 10px; }
-.odds-row button { background: #333; color: gold; border: 1px solid gold; padding: 8px; border-radius: 5px; cursor: pointer; width: 30%; }
-/* مینیۆی خوارەوە */
-.bottom-nav {
-    position: fixed; bottom: 0; width: 100%; height: 65px;
-    background: #111; display: flex; justify-content: space-around;
-    align-items: center; border-top: 1px solid gold; z-index: 1000;
-}
-.bottom-nav div { text-align: center; color: #ccc; font-size: 12px; cursor: pointer; }
-.bottom-nav i { display: block; font-size: 20px; color: gold; margin-bottom: 4px; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+body { background: radial-gradient(circle, #500000 0%, #000 100%); color: white; direction: rtl; padding-bottom: 70px; }
 
-/* پۆپ ئەپی پارە */
-.pay-form-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 2000;
-}
-.pay-modal { background: #1a1a1a; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid gold; }
+.main-header { background: #111; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 1000; }
+.header-center { color: gold; font-weight: bold; font-size: 20px; }
+.user-bal { background: #222; padding: 5px 12px; border-radius: 20px; border: 1px solid gold; font-size: 13px; }
 
-/* کارتەکانی وەرزش */
-.match-card { background: rgba(255,255,255,0.05); margin: 15px; padding: 15px; border-radius: 12px; border: 1px solid #333; }
-.match-teams { text-align: center; font-weight: bold; margin-bottom: 12px; }
-.odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.odds-grid button { background: #222; border: 1px solid #444; color: gold; padding: 10px; border-radius: 8px; }
+/* Grid for Deposit/Withdraw */
+.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+.method-card { background: #1a1a1a; padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #333; transition: 0.3s; }
+.method-card:active { transform: scale(0.95); }
+.method-card img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px; border-radius: 10px; }
+
+/* Bottom Bar */
+.bottom-bar { position: fixed; bottom: 0; width: 100%; height: 65px; background: #0a0a0a; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #333; z-index: 1000; }
+.bottom-bar div { text-align: center; font-size: 11px; color: #888; cursor: pointer; }
+.bottom-bar span { display: block; margin-top: 3px; }
+
+/* Modal for Inputs */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; }
+.modal-content { background: #151515; padding: 25px; border-radius: 20px; width: 90%; max-width: 380px; border: 1px solid #444; }
+input { width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; border: none; background: #252525; color: white; }
+.btn-gold { width: 100%; padding: 15px; background: gold; color: black; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+
+/* Side Menu */
+.side-navbar { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: #0a0a0a; z-index: 3000; transition: 0.3s; border-left: 1px solid #333; }
+.nav-header { padding: 20px; background: #111; color: gold; display: flex; justify-content: space-between; }
+.nav-links div { padding: 15px 20px; border-bottom: 1px solid #111; }
