@@ -3,52 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LordBet | Official System</title>
+    <title>LordBet Casino</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
-<<div class="top-nav">
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-    <div class="logo">LordBet</div>
-    <div id="main-balance" class="balance-display">0 IQD</div>
-</div>
+<body>
 
-<div id="side-menu" class="sidebar">
-    <div class="close-btn" onclick="toggleMenu()">×</div>
-    <div onclick="showPage('home')">🏠 سەرەکی</div>
-    <div onclick="showPage('sports')">⚽ وەرزش (Live)</div>
-    <div onclick="showPage('live-casino')">🎰 لایڤ کازینۆ</div>
-    <div onclick="showPage('games')">🎮 یارییەکان</div>
-    <div onclick="showPage('wallet')">💰 بانک (Deposit)</div>
-    <div onclick="showPage('withdraw')">💸 پارە کێشانەوە</div>
-    <div onclick="showPage('profile')">👤 پڕۆفایل</div>
-</div>
->
-    <header class="main-header">
-        <div class="logo">LORD<span>BET</span></div>
-        <div class="lang-btns">
-            <button onclick="changeLang('ku')">KU</button>
-            <button onclick="changeLang('ar')">AR</button>
-            <button onclick="changeLang('en')">EN</button>
-        </div>
-        <div class="user-status">
-            <span id="main-balance">0 IQD</span>
-            <a href="#" onclick="showPage('wallet')" class="plus-btn">+</a>
-        </div>
-    </header>
+    <div class="top-header">
+        <div class="menu-btn" onclick="toggleMenu()">☰</div>
+        <div class="logo">LORDBET</div>
+        <div id="main-balance" class="user-balance">0 IQD</div>
+    </div>
 
-    <div id="main-content">
-        </div>
+    <div id="side-menu" class="side-nav">
+        <div class="close-menu" onclick="toggleMenu()">×</div>
+        <div class="nav-item" onclick="showPage('home')"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png"> سەرەکی</div>
+        <div class="nav-item" onclick="showPage('sports')"><img src="https://cdn-icons-png.flaticon.com/512/731/731941.png"> وەرزش</div>
+        <div class="nav-item" onclick="showPage('games')"><img src="https://cdn-icons-png.flaticon.com/512/1055/1055823.png"> کازینۆ</div>
+        <div class="nav-item" onclick="showPage('wallet')"><img src="https://cdn-icons-png.flaticon.com/512/2489/2489756.png"> بارکردن</div>
+        <div class="nav-item" onclick="showPage('withdraw')"><img src="https://cdn-icons-png.flaticon.com/512/10149/10149458.png"> کێشانەوە</div>
+        <div class="nav-item" onclick="showPage('profile')"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png"> پڕۆفایل</div>
+    </div>
 
-    <footer class="bottom-nav">
-        <a href="#" onclick="showPage('home')"><i class="fa fa-home"></i><span data-key="home">سەرەکی</span></a>
-        <a href="#" onclick="showPage('leagues')"><i class="fa fa-trophy"></i><span data-key="leagues">خولەکان</span></a>
-        <a href="#" onclick="showPage('wallet')"><i class="fa fa-wallet"></i><span data-key="wallet">بانک</span></a>
-        <a href="#" onclick="showPage('profile')"><i class="fa fa-user"></i><span data-key="profile">هەژمار</span></a>
-    </footer>
+    <div id="main-content"></div>
 
     <script src="script.js"></script>
 </body>
