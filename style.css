@@ -1,107 +1,48 @@
-* { box-sizing: border-box; font-family: 'Tahoma', sans-serif; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
 
 body {
-    /* باکگراوەندی سووری لێڵ لە ناوەڕاستدا */
-    background: radial-gradient(circle, #4a0000 0%, #0b0e14 100%);
+    background: radial-gradient(circle, #5c0000 0%, #000000 100%);
     background-attachment: fixed;
     color: white;
     direction: rtl;
 }
 
-#main-content { padding-bottom: 80px; min-height: 100vh; }
-
-/* دیزاینی چوارگۆشەکان */
-.wallet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; }
-
-.pay-card-box {
-    aspect-ratio: 1/1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.bg-asia { background: #d71920; }
-.bg-korek { background: #00a1e4; }
-.bg-zain { background: #632d8d; }
-.bg-zi { background: #28a745; }
-
-.pay-detail-form {
-    display: none;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    margin: 15px;
-    border-radius: 15px;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    background: #1a1f29;
-    border: 1px solid #333;
-    color: white;
-    border-radius: 8px;
-}
-
-.main-btn {
-    width: 100%;
-    padding: 12px;
-    background: #fcc419;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-/* مینیۆی خوارەوە */
-.footer-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #161b22;
-    display: flex;
-    justify-content: space-around;
-    padding: 15px 0;
-    border-top: 1px solid #333;
-}
-/* Sidebar Style */
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: -250px; /* ونی دەکات */
-    width: 250px;
-    height: 100%;
-    background: #111;
-    z-index: 1000;
-    transition: 0.3s;
-    padding-top: 60px;
-    border-left: 2px solid gold;
-}
-
-.sidebar div {
-    padding: 15px 20px;
-    border-bottom: 1px solid #222;
-    cursor: pointer;
-}
-
-.top-nav {
-    background: #161b22;
-    padding: 10px 20px;
+.top-header {
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 900;
+    border-bottom: 2px solid #ffcc00;
+    position: sticky; top: 0; z-index: 100;
 }
 
-.menu-icon { font-size: 24px; cursor: pointer; color: gold; }
+.menu-btn { font-size: 28px; cursor: pointer; color: gold; }
+.logo { font-weight: bold; font-size: 22px; color: gold; letter-spacing: 2px; }
+.user-balance { background: #222; padding: 5px 15px; border-radius: 20px; border: 1px solid gold; font-size: 14px; }
+
+/* Sidebar */
+.side-nav {
+    position: fixed; top: 0; right: -280px; width: 280px; height: 100%;
+    background: rgba(0,0,0,0.95); z-index: 200; transition: 0.4s; padding-top: 60px;
+    border-left: 1px solid gold;
+}
+.nav-item {
+    display: flex; align-items: center; padding: 15px 25px;
+    border-bottom: 1px solid #222; cursor: pointer; transition: 0.2s;
+}
+.nav-item:hover { background: #330000; }
+.nav-item img { width: 24px; margin-left: 15px; filter: invert(1); }
+.close-menu { position: absolute; top: 15px; left: 20px; font-size: 35px; cursor: pointer; }
+
+/* Wallet Grid */
+.wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+.pay-box {
+    background: #1a1a1a; padding: 20px; border-radius: 15px; text-align: center;
+    border: 1px solid #333; cursor: pointer;
+}
+.pay-box img { width: 50px; margin-bottom: 10px; }
+.pay-form { display: none; background: #222; margin: 15px; padding: 20px; border-radius: 15px; }
+
+input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #333; color: white; }
+.main-btn { width: 100%; padding: 12px; background: gold; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
