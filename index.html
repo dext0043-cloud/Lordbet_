@@ -11,36 +11,30 @@
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="header-left">
-            <span class="user-bal" id="main-balance">0 IQD</span>
-        </div>
-        <div class="header-center">LORDBET</div>
-        <div class="header-right" onclick="toggleMenu()">☰</div>
-    </header>
-
-    <div id="side-menu" class="side-navbar">
-        <div class="nav-header">LORDBET MENU <span onclick="toggleMenu()">×</span></div>
-        <div class="nav-links">
-            <div onclick="showPage('home')">🏠 سەرەکی</div>
-            <div onclick="showPage('sports')">⚽ گرەوی وەرزشی</div>
-            <div onclick="showPage('casino')">🎰 کازینۆ</div>
-            <div onclick="showPage('deposit')">💰 بارکردنی باڵانس</div>
-            <div onclick="showPage('withdraw')">💸 کێشانەوە</div>
-            <div onclick="showPage('profile')">👤 هەژمارەکەم</div>
-            <div onclick="showPage('reg')">📝 دروستکردنی هەژمار</div>
-        </div>
+    <div class="header">
+        <div class="menu-btn" onclick="toggleMenu()">☰</div>
+        <div class="logo">LORDBET</div>
+        <div class="balance" id="main-balance">0 IQD</div>
     </div>
 
-    <main id="main-content"></main>
+    <div id="side-menu" class="side-nav">
+        <div class="close-nav" onclick="toggleMenu()">×</div>
+        <div onclick="showPage('home')">🏠 سەرەکی</div>
+        <div onclick="showPage('sports')">⚽ وەرزش</div>
+        <div onclick="showPage('casino')">🎰 کازینۆ</div>
+        <div onclick="showPage('deposit')">💰 بارکردن</div>
+        <div onclick="showPage('withdraw')">💸 کێشانەوە</div>
+        <div onclick="showPage('profile')">👤 پڕۆفایل</div>
+    </div>
 
-    <nav class="bottom-bar">
-        <div onclick="showPage('home')">🏠<span>Home</span></div>
-        <div onclick="showPage('sports')">⚽<span>Sports</span></div>
-        <div onclick="showPage('casino')">🎰<span>Casino</span></div>
-        <div onclick="showPage('deposit')">💳<span>Deposit</span></div>
-        <div onclick="showPage('profile')">👤<span>User</span></div>
-    </nav>
+    <div id="main-content" class="container"></div>
+
+    <div class="footer">
+        <div onclick="showPage('home')">🏠<br>سەرەکی</div>
+        <div onclick="showPage('sports')">⚽<br>وەرزش</div>
+        <div onclick="showPage('deposit')">💰<br>بارکردن</div>
+        <div onclick="showPage('profile')">👤<br>هەژمار</div>
+    </div>
 
     <script src="script.js"></script>
 </body>
