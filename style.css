@@ -16,3 +16,24 @@ input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: n
 .main-btn { width: 100%; padding: 12px; background: gold; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
 .odds-row { display: flex; justify-content: space-around; margin-top: 10px; }
 .odds-row button { background: #333; color: gold; border: 1px solid gold; padding: 8px; border-radius: 5px; cursor: pointer; width: 30%; }
+/* مینیۆی خوارەوە */
+.bottom-nav {
+    position: fixed; bottom: 0; width: 100%; height: 65px;
+    background: #111; display: flex; justify-content: space-around;
+    align-items: center; border-top: 1px solid gold; z-index: 1000;
+}
+.bottom-nav div { text-align: center; color: #ccc; font-size: 12px; cursor: pointer; }
+.bottom-nav i { display: block; font-size: 20px; color: gold; margin-bottom: 4px; }
+
+/* پۆپ ئەپی پارە */
+.pay-form-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 2000;
+}
+.pay-modal { background: #1a1a1a; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid gold; }
+
+/* کارتەکانی وەرزش */
+.match-card { background: rgba(255,255,255,0.05); margin: 15px; padding: 15px; border-radius: 12px; border: 1px solid #333; }
+.match-teams { text-align: center; font-weight: bold; margin-bottom: 12px; }
+.odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.odds-grid button { background: #222; border: 1px solid #444; color: gold; padding: 10px; border-radius: 8px; }
