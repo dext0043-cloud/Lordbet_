@@ -10,7 +10,23 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
-<body>
+<<div class="top-nav">
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <div class="logo">LordBet</div>
+    <div id="main-balance" class="balance-display">0 IQD</div>
+</div>
+
+<div id="side-menu" class="sidebar">
+    <div class="close-btn" onclick="toggleMenu()">×</div>
+    <div onclick="showPage('home')">🏠 سەرەکی</div>
+    <div onclick="showPage('sports')">⚽ وەرزش (Live)</div>
+    <div onclick="showPage('live-casino')">🎰 لایڤ کازینۆ</div>
+    <div onclick="showPage('games')">🎮 یارییەکان</div>
+    <div onclick="showPage('wallet')">💰 بانک (Deposit)</div>
+    <div onclick="showPage('withdraw')">💸 پارە کێشانەوە</div>
+    <div onclick="showPage('profile')">👤 پڕۆفایل</div>
+</div>
+>
     <header class="main-header">
         <div class="logo">LORD<span>BET</span></div>
         <div class="lang-btns">
