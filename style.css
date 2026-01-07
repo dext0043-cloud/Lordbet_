@@ -1,48 +1,18 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-
-body {
-    background: radial-gradient(circle, #5c0000 0%, #000000 100%);
-    background-attachment: fixed;
-    color: white;
-    direction: rtl;
-}
-
-.top-header {
-    background: rgba(0,0,0,0.8);
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #ffcc00;
-    position: sticky; top: 0; z-index: 100;
-}
-
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+body { background: radial-gradient(circle, #4a0000 0%, #000000 100%); background-attachment: fixed; color: white; direction: rtl; }
+.top-header { background: rgba(0,0,0,0.9); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid gold; position: sticky; top: 0; z-index: 100; }
 .menu-btn { font-size: 28px; cursor: pointer; color: gold; }
-.logo { font-weight: bold; font-size: 22px; color: gold; letter-spacing: 2px; }
-.user-balance { background: #222; padding: 5px 15px; border-radius: 20px; border: 1px solid gold; font-size: 14px; }
-
-/* Sidebar */
-.side-nav {
-    position: fixed; top: 0; right: -280px; width: 280px; height: 100%;
-    background: rgba(0,0,0,0.95); z-index: 200; transition: 0.4s; padding-top: 60px;
-    border-left: 1px solid gold;
-}
-.nav-item {
-    display: flex; align-items: center; padding: 15px 25px;
-    border-bottom: 1px solid #222; cursor: pointer; transition: 0.2s;
-}
-.nav-item:hover { background: #330000; }
-.nav-item img { width: 24px; margin-left: 15px; filter: invert(1); }
-.close-menu { position: absolute; top: 15px; left: 20px; font-size: 35px; cursor: pointer; }
-
-/* Wallet Grid */
-.wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-.pay-box {
-    background: #1a1a1a; padding: 20px; border-radius: 15px; text-align: center;
-    border: 1px solid #333; cursor: pointer;
-}
-.pay-box img { width: 50px; margin-bottom: 10px; }
-.pay-form { display: none; background: #222; margin: 15px; padding: 20px; border-radius: 15px; }
-
-input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #333; color: white; }
-.main-btn { width: 100%; padding: 12px; background: gold; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.logo { font-weight: bold; font-size: 22px; color: gold; }
+.user-balance { background: #222; padding: 5px 12px; border-radius: 20px; border: 1px solid gold; font-size: 14px; }
+.side-nav { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: rgba(0,0,0,0.98); z-index: 200; transition: 0.4s; padding-top: 60px; border-left: 1px solid gold; }
+.nav-item { display: flex; align-items: center; padding: 15px 25px; border-bottom: 1px solid #222; cursor: pointer; }
+.nav-item img { width: 22px; margin-left: 15px; filter: invert(1); }
+.close-menu { position: absolute; top: 15px; left: 20px; font-size: 35px; cursor: pointer; color: gold; }
+.wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
+.pay-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #333; cursor: pointer; }
+.pay-box img { width: 40px; margin-bottom: 8px; }
+.pay-form, .match-card { background: rgba(255,255,255,0.08); margin: 15px; padding: 20px; border-radius: 15px; border: 1px solid #444; }
+input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; background: #222; color: white; }
+.main-btn { width: 100%; padding: 12px; background: gold; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+.odds-row { display: flex; justify-content: space-around; margin-top: 10px; }
+.odds-row button { background: #333; color: gold; border: 1px solid gold; padding: 8px; border-radius: 5px; cursor: pointer; width: 30%; }
