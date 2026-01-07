@@ -73,3 +73,35 @@ input {
     padding: 15px 0;
     border-top: 1px solid #333;
 }
+/* Sidebar Style */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px; /* ونی دەکات */
+    width: 250px;
+    height: 100%;
+    background: #111;
+    z-index: 1000;
+    transition: 0.3s;
+    padding-top: 60px;
+    border-left: 2px solid gold;
+}
+
+.sidebar div {
+    padding: 15px 20px;
+    border-bottom: 1px solid #222;
+    cursor: pointer;
+}
+
+.top-nav {
+    background: #161b22;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.menu-icon { font-size: 24px; cursor: pointer; color: gold; }
