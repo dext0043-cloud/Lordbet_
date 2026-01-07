@@ -1,4 +1,3 @@
-// 1. Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAhQHJrxhrIbiLfqsrBSTX92iVJauhVNLo",
   authDomain: "lordbet-9e8fa.firebaseapp.com",
@@ -12,156 +11,103 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// 2. Sidebar Toggle
 function toggleMenu() {
-    const menu = document.getElementById('side-menu');
-    menu.style.right = (menu.style.right === '0px') ? '-280px' : '0px';
+    const s = document.getElementById('side-menu');
+    s.style.right = s.style.right === '0px' ? '-280px' : '0px';
 }
 
-// 3. Main Navigation System
-async function showPage(page) {
+async function showPage(p) {
     const main = document.getElementById('main-content');
     if(document.getElementById('side-menu').style.right === '0px') toggleMenu();
+    window.scrollTo(0,0);
 
-    if (page === 'wallet' || page === 'withdraw') {
-        const isDep = page === 'wallet';
+    if (p === 'deposit' || p === 'withdraw') {
+        const title = p === 'deposit' ? 'بارکردنی باڵانس' : 'کێشانەوەی پارە';
         main.innerHTML = `
-            <div class="page-header">
-                <h2>${isDep ? 'بارکردنی باڵانس' : 'کێشانەوەی پارە'}</h2>
-                <p style="font-size:12px; color:gold;">(کەمترین: 5,000 | زۆرترین: 1,000,000 IQD)</p>
+            <div style="padding:20px; text-align:center;"><h2>${title}</h2><p style="color:gold;">5,000 - 1,000,000 IQD</p></div>
+            <div class="method-grid">
+                <div class="method-card" onclick="openInput('Asiacell', '${p}')"><img src="https://i.ibb.co/L8r3rXp/asia.png"><br>Asiacell</div>
+                <div class="method-card" onclick="openInput('Korek', '${p}')"><img src="https://i.ibb.co/0V8V2M1/korek.png"><br>Korek</div>
+                <div class="method-card" onclick="openInput('Zain', '${p}')"><img src="https://i.ibb.co/mH0Q0Y4/zain.png"><br>Zain Cash</div>
+                <div class="method-card" onclick="openInput('ZiCharge', '${p}')"><img src="https://i.ibb.co/7R8mX7z/zicharge.png"><br>ZiCharge</div>
             </div>
-            <div class="wallet-grid">
-                <div class="pay-box" onclick="openPay('Asiacell', '${page}')">
-                    <img src="https://i.ibb.co/L8r3rXp/asia.png">
-                    <span>Asiacell</span>
-                </div>
-                <div class="pay-box" onclick="openPay('Korek', '${page}')">
-                    <img src="https://i.ibb.co/0V8V2M1/korek.png">
-                    <span>Korek</span>
-                </div>
-                <div class="pay-box" onclick="openPay('ZainCash', '${page}')">
-                    <img src="https://i.ibb.co/mH0Q0Y4/zain.png">
-                    <span>Zain Cash</span>
-                </div>
-                <div class="pay-box" onclick="openPay('ZiCharge', '${page}')">
-                    <img src="https://i.ibb.co/7R8mX7z/zicharge.png">
-                    <span>ZiCharge</span>
-                </div>
-            </div>
-            <div id="p-area" class="pay-form-overlay" style="display:none;">
-                <div class="pay-modal">
-                    <h3 id="p-method-title"></h3>
-                    <input type="number" id="p-amt" placeholder="بڕی پارە (IQD)">
-                    <input type="text" id="p-pin" placeholder="${isDep ? 'کۆدی کارت' : 'ژمارەی وەرگرتن'}">
-                    <button class="main-btn" onclick="processTransaction('${page}')">ناردنی داواکاری</button>
-                    <button class="main-btn" style="background:#444;" onclick="document.getElementById('p-area').style.display='none'">پاشگەزبوونەوە</button>
-                </div>
-            </div>`;
+            <div id="modal" class="modal"><div class="modal-content">
+                <h3 id="m-title" style="color:gold;"></h3>
+                <input type="number" id="m-amt" placeholder="بڕی پارە">
+                <input type="text" id="m-pin" placeholder="کۆدی کارت یان مۆبایل">
+                <button class="btn-gold" onclick="submitRequest('${p}')">ناردن</button>
+                <p onclick="closeModal()" style="text-align:center; margin-top:15px; cursor:pointer;">داخستن</p>
+            </div></div>`;
     } 
-    else if (page === 'sports') {
-        main.innerHTML = `
-            <div class="sports-section">
-                <h2 style="text-align:center; color:gold; margin:15px;">گرەوی وەرزشی</h2>
-                <div class="match-card">
-                    <div class="match-teams">Real Madrid <span>vs</span> Barcelona</div>
-                    <div class="odds-grid">
-                        <button onclick="placeBet('Real Madrid vs Barca', 'Real Madrid', 1.85)">1<br>1.85</button>
-                        <button onclick="placeBet('Real Madrid vs Barca', 'Draw', 3.40)">X<br>3.40</button>
-                        <button onclick="placeBet('Real Madrid vs Barca', 'Barcelona', 2.10)">2<br>2.10</button>
-                    </div>
+    else if (p === 'sports') {
+        main.innerHTML = `<div style="padding:20px;"><h2 style="color:gold; text-align:center;">گرەوی وەرزشی</h2>
+            <div style="background:#1a1a1a; padding:15px; border-radius:15px; margin-top:15px;">
+                <p style="text-align:center;">Man City vs Arsenal</p>
+                <div style="display:flex; justify-content:space-between; margin-top:10px;">
+                    <button class="btn-gold" style="width:30%;" onclick="makeBet('Man City', 1.65)">1 (1.65)</button>
+                    <button class="btn-gold" style="width:30%; background:#333; color:white;" onclick="makeBet('Draw', 3.40)">X (3.40)</button>
+                    <button class="btn-gold" style="width:30%;" onclick="makeBet('Arsenal', 2.90)">2 (2.90)</button>
                 </div>
-                <div class="match-card">
-                    <div class="match-teams">Arsenal <span>vs</span> Liverpool</div>
-                    <div class="odds-grid">
-                        <button onclick="placeBet('Arsenal vs Liverpool', 'Arsenal', 2.05)">1<br>2.05</button>
-                        <button onclick="placeBet('Arsenal vs Liverpool', 'Draw', 3.10)">X<br>3.10</button>
-                        <button onclick="placeBet('Arsenal vs Liverpool', 'Liverpool', 2.40)">2<br>2.40</button>
-                    </div>
-                </div>
-                <iframe src="https://www.scorebat.com/embed/livescore/" width="100%" height="400" style="border:none; border-radius:15px; margin-top:15px;"></iframe>
-            </div>`;
+            </div>
+            <iframe src="https://www.scorebat.com/embed/livescore/" width="100%" height="500" style="border:none; margin-top:20px;"></iframe></div>`;
     }
-    else if (page === 'register') {
-        main.innerHTML = `
-            <div class="pay-card" style="margin:20px; padding:20px; background:rgba(255,255,255,0.05); border-radius:15px;">
-                <h2 style="text-align:center; color:gold;">تۆمارکردنی نوێ</h2>
-                <input type="text" id="r-n" placeholder="ناوی تەواو">
-                <input type="number" id="r-p" placeholder="ژمارەی مۆبایل">
-                <input type="password" id="r-ps" placeholder="پاسۆرد">
-                <button class="main-btn" onclick="registerUser()">دروستکردنی هەژمار</button>
-            </div>`;
+    else if (p === 'reg') {
+        main.innerHTML = `<div style="padding:40px 20px;"><h2>هەژماری نوێ</h2><input id="un" placeholder="ناو"><input id="ph" placeholder="مۆبایل"><input type="password" id="ps" placeholder="پاسۆرد"><button class="btn-gold" onclick="register()">دروستکردن</button></div>`;
     }
-    else {
-        main.innerHTML = `<div style="text-align:center; padding:100px 20px;"><h1 style="color:gold; font-size:45px;">LORDBET</h1><p>خێراترین پلاتفۆرمی گرەوی وەرزشی</p></div>`;
+    else if (p === 'profile') {
+        const u = auth.currentUser;
+        if(!u) main.innerHTML = `<div style="padding:40px 20px;"><h2>چوونە ژوورەوە</h2><input id="li" placeholder="ناو یان مۆبایل"><input type="password" id="lp" placeholder="پاسۆرد"><button class="btn-gold" onclick="login()">داخڵبوون</button></div>`;
+        else {
+            const d = (await db.collection("users").doc(u.uid).get()).data();
+            main.innerHTML = `<div style="text-align:center; padding:50px;"><h2>${d.name}</h2><p>${d.balance} IQD</p><button class="btn-gold" style="background:red; margin-top:20px;" onclick="auth.signOut().then(()=>location.reload())">Logout</button></div>`;
+        }
     }
+    else { main.innerHTML = `<div style="text-align:center; padding:100px 20px;"><h1 style="color:gold; font-size:40px;">LORDBET</h1><p>خێراترین و پڕۆفیشناڵترین سیستم</p></div>`; }
 }
 
-// 4. Betting & Transactions Logic
-function openPay(method, type) {
-    document.getElementById('p-area').style.display = 'flex';
-    document.getElementById('p-method-title').innerText = method;
+let currentMethod = "";
+function openInput(m, p) { currentMethod = m; document.getElementById('m-title').innerText = m; document.getElementById('modal').style.display='flex'; }
+function closeModal() { document.getElementById('modal').style.display='none'; }
+
+async function submitRequest(type) {
+    const amt = parseInt(document.getElementById('m-amt').value);
+    const pin = document.getElementById('m-pin').value;
+    if(amt < 5000 || amt > 1000000) return alert("بڕەکە دەبێت لە نێوان ٥ هەزار بۆ ١ ملیۆن بێت");
+    await db.collection(type === 'deposit' ? "deposits" : "withdraws").add({ uid: auth.currentUser.uid, method: currentMethod, amount: amt, pin, status: "pending", time: new Date() });
+    alert("داواکارییەکەت نێردرا");
+    closeModal();
 }
 
-async function processTransaction(type) {
-    const amt = parseInt(document.getElementById('p-amt').value);
-    const pin = document.getElementById('p-pin').value;
-    const method = document.getElementById('p-method-title').innerText;
-
-    if (amt < 5000 || amt > 1000000) return alert("بڕی پارە دەبێت لە نێوان 5,000 بۆ 1,000,000 بێت");
-    if (!pin) return alert("تکایە زانیارییەکان تەواو بکە");
-
-    await db.collection(type === 'wallet' ? "deposits" : "withdraws").add({
-        uid: auth.currentUser.uid,
-        method, amount: amt, pin, status: "pending", time: new Date()
-    });
-    alert("داواکارییەکەت نێردرا، پاش کەمێکی تر چالاک دەبێت");
-    document.getElementById('p-area').style.display = 'none';
+async function makeBet(team, rate) {
+    const amt = prompt("بڕی گرەو (IQD):", "1000");
+    if(!amt || amt < 1000) return;
+    const ref = db.collection("users").doc(auth.currentUser.uid);
+    const d = (await ref.get()).data();
+    if(d.balance < amt) return alert("باڵانس بەس نییە");
+    const tid = "LB-" + Math.floor(Math.random()*900000);
+    await db.collection("bets").add({ uid: auth.currentUser.uid, tid, team, rate, amount: parseInt(amt), status: "pending", time: new Date() });
+    await ref.update({ balance: d.balance - parseInt(amt) });
+    alert("پسوولە دروستکرا: " + tid);
 }
 
-async function placeBet(match, pick, rate) {
-    const user = auth.currentUser;
-    if (!user) return alert("تکایە سەرەتا لۆگین بکە");
-
-    const amount = prompt(`${match}\nهەڵبژاردن: ${pick} (${rate})\n\nبڕی گرەو بنووسە:`, "1000");
-    if (!amount || amount < 1000) return alert("کەمترین گرەو 1,000 دینارە");
-
-    const userRef = db.collection("users").doc(user.uid);
-    const doc = await userRef.get();
-    
-    if (doc.data().balance < amount) return alert("باڵانست بەس نییە");
-
-    const ticketID = "LB-" + Math.floor(Math.random() * 900000 + 100000); // دروستکردنی کۆدی پسوولە
-
-    await db.collection("bets").add({
-        uid: user.uid,
-        ticketID: ticketID,
-        match: match,
-        pick: pick,
-        rate: rate,
-        amount: parseInt(amount),
-        status: "pending",
-        time: new Date()
-    });
-
-    await userRef.update({ balance: doc.data().balance - parseInt(amount) });
-    alert(`گرەو بەسەرکەوتوویی کرا!\nکۆدی پسوولە: ${ticketID}`);
-}
-
-async function registerUser() {
-    const n = document.getElementById('r-n').value, p = document.getElementById('r-p').value, ps = document.getElementById('r-ps').value;
-    if(!n || !p || ps.length < 6) return alert("تکایە زانیارییەکان ڕاست بنووسە");
+async function register() {
+    const n=document.getElementById('un').value, p=document.getElementById('ph').value, ps=document.getElementById('ps').value;
     try {
-        const res = await auth.createUserWithEmailAndPassword(p + "@bet.com", ps);
+        const res = await auth.createUserWithEmailAndPassword(p+"@bet.com", ps);
         await db.collection("users").doc(res.user.uid).set({ uid: res.user.uid, name: n, phone: p, balance: 0 });
         location.reload();
-    } catch (e) { alert("هەڵەیەک ڕوویدا یان ژمارەکە پێشتر هەیە"); }
+    } catch(e) { alert(e.message); }
 }
 
-auth.onAuthStateChanged(user => {
-    if (user) {
-        db.collection("users").doc(user.uid).onSnapshot(doc => {
-            if (doc.exists) document.getElementById('main-balance').innerText = doc.data().balance.toLocaleString() + " IQD";
-        });
-    }
+async function login() {
+    const id=document.getElementById('li').value, ps=document.getElementById('lp').value;
+    let q = await db.collection("users").where("name","==",id).get();
+    if(q.empty) q = await db.collection("users").where("phone","==",id).get();
+    if(!q.empty) { await auth.signInWithEmailAndPassword(q.docs[0].data().phone+"@bet.com", ps); location.reload(); }
+    else alert("نەدۆزرایەوە");
+}
+
+auth.onAuthStateChanged(u => {
+    if(u) db.collection("users").doc(u.uid).onSnapshot(d => { if(d.exists) document.getElementById('main-balance').innerText = d.data().balance.toLocaleString() + " IQD"; });
     showPage('home');
 });
