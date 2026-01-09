@@ -1,22 +1,302 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-body { background: radial-gradient(circle, #4a0000 0%, #000 100%); color: white; direction: rtl; }
+/* --- گشتی و بنەڕەتی --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
 
-.header { background: #111; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid gold; position: sticky; top: 0; z-index: 1000; }
-.logo { color: gold; font-weight: bold; font-size: 22px; }
-.balance { background: #222; padding: 5px 12px; border-radius: 20px; border: 1px solid gold; font-size: 13px; }
+body {
+    background: radial-gradient(circle, #5c0000 0%, #000000 100%);
+    background-attachment: fixed;
+    color: white;
+    direction: rtl;
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-bottom: 80px; /* بۆ ئەوەی مینیۆی خوارەوە پێش ناوەڕۆک نەگرێت */
+}
 
-.container { padding: 20px; padding-bottom: 80px; min-height: 90vh; text-align: center; }
+/* --- هێدەر (Header) --- */
+.header {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ffcc00;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-.footer { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 10px; border-top: 1px solid #333; z-index: 1000; }
-.footer div { color: #888; font-size: 12px; cursor: pointer; }
+.logo {
+    color: #ffcc00;
+    font-weight: bold;
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
 
-.side-nav { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: #0a0a0a; z-index: 2000; transition: 0.3s; padding-top: 50px; border-left: 1px solid gold; }
-.side-nav div { padding: 15px 20px; border-bottom: 1px solid #222; cursor: pointer; text-align: right; }
-.close-nav { position: absolute; top: 10px; left: 15px; font-size: 30px; color: gold; }
+.menu-btn {
+    font-size: 28px;
+    cursor: pointer;
+    color: #ffcc00;
+}
 
-.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-.card { background: #1a1a1a; padding: 15px; border-radius: 12px; border: 1px solid #333; cursor: pointer; }
-.card img { width: 50px; margin-bottom: 10px; }
+.balance {
+    background: #222;
+    padding: 6px 15px;
+    border-radius: 20px;
+    border: 1px solid #ffcc00;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+}
 
-input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #252525; color: white; text-align: center; }
-.btn { width: 100%; padding: 12px; background: gold; color: black; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+/* --- مینیۆی لای ڕاست (Sidebar) --- */
+.side-nav {
+    position: fixed;
+    top: 0;
+    right: -280px;
+    width: 280px;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.98);
+    z-index: 2000;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 60px;
+    border-left: 1px solid #ffcc00;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+}
+
+.side-nav div {
+    padding: 18px 25px;
+    border-bottom: 1px solid #222;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.side-nav div:hover {
+    background: #330000;
+    color: #ffcc00;
+}
+
+.close-nav {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 35px;
+    color: #ffcc00;
+    cursor: pointer;
+}
+
+/* --- مینیۆی خوارەوە (Footer Nav) --- */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #0d0d0d;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid #333;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.8);
+}
+
+.footer div {
+    text-align: center;
+    color: #888;
+    font-size: 11px;
+    cursor: pointer;
+    transition: 0.3s;
+    flex: 1;
+}
+
+.footer div:hover {
+    color: #ffcc00;
+}
+
+/* --- بەشی وەرزش و یارییەکان --- */
+.sports-page {
+    padding: 15px;
+}
+
+.date-header {
+    background: linear-gradient(90deg, #4a0000, #800000);
+    padding: 12px;
+    border-radius: 8px;
+    margin: 20px 0 12px;
+    color: #ffcc00;
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
+    border: 1px solid #600000;
+}
+
+.match-card {
+    background: rgba(30, 30, 30, 0.8);
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    margin-bottom: 12px;
+    transition: 0.3s;
+}
+
+.match-card:hover {
+    border-color: #ffcc00;
+}
+
+.match-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.match-info span {
+    background: #000;
+    color: #ffcc00;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: 1px solid #444;
+}
+
+.odds-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.odds-row button {
+    flex: 1;
+    background: #252525;
+    color: #ffcc00;
+    border: 1px solid #444;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.odds-row button:active {
+    background: #ffcc00;
+    color: #000;
+    transform: scale(0.95);
+}
+
+/* --- بەشی پارەدان و لۆگۆکان --- */
+.method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 15px;
+}
+
+.method-card {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.method-card:hover {
+    background: #252525;
+    border-color: #ffcc00;
+}
+
+.method-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pay-form {
+    display: none;
+    margin: 20px;
+    padding: 20px;
+    background: #111;
+    border-radius: 15px;
+    border: 1px solid #ffcc00;
+}
+
+/* --- ئینپوتەکان و دوگمەکان --- */
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: #1a1a1a;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #ffcc00;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    background: #ffcc00;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #e6b800;
+}
+
+/* --- پڕۆفایل و بەخێرهاتن --- */
+.user-info {
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.bal-box {
+    font-size: 32px;
+    color: #ffcc00;
+    margin: 25px 0;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #ccc;
+    margin-bottom: 30px;
+}
